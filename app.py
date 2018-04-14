@@ -168,16 +168,9 @@ class App(QWidget):
             return files
  
 
-class SystemTrayIcon(QSystemTrayIcon):
-    def __init__(self, parent=None):
-        QSystemTrayIcon.__init__(self, parent)
-        self.setIcon(QIcon(r"C:\Users\kapkapbopoh\.spyder-py3\icons\64x64.png"))
-
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     ex = App()
-    tray = SystemTrayIcon()
-    tray.show()
 
     sys.exit(app.exec_())

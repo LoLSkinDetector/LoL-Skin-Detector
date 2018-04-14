@@ -127,14 +127,12 @@ class App(QWidget):
         self.threads = []
         self.completion_percent = 0
         self.progressBar.setValue(self.completion_percent)
-        
         self.detected_skins = {}
-        
-        print(self.skins_dir_path)
-        
+
         sliced_skins_pathes = each_slice(self.skins_pathes, skins_count_per_thread)
-        self.additional_percent = round((100 / (int(len(self.skins_pathes) / skins_count_per_thread)) / 2), 3)
         
+        self.additional_percent = round((100 / (int(len(self.skins_pathes) / skins_count_per_thread)) / 2), 3)
+                
         for skins_pathes in sliced_skins_pathes:
             if self.completion_percent < 100:
                 self.completion_percent += self.additional_percent
@@ -181,6 +179,5 @@ if __name__ == '__main__':
     ex = App()
     tray = SystemTrayIcon()
     tray.show()
-
 
     sys.exit(app.exec_())

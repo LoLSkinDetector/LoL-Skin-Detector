@@ -2,4 +2,6 @@ __pycache__*/
 .spyproject*/
 skins*/
 platforms*/
+build*/
+dist*/
 app.spec

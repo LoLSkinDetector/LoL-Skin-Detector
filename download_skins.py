@@ -8,11 +8,13 @@ from PyQt5 import QtCore
 
 
 class DownloadSkins:
+    DDRAGON_VERSIONS_URL = "https://ddragon.leagueoflegends.com/api/versions.json"
+    
     def __init__(self):
-        self.data_url = "http://ddragon.leagueoflegends.com/cdn/8.6.1/data/en_US/championFull.json"
+        self.data_url = self.__champion_full_url()
         self.loading_images_url = "http://stelar7.no/cdragon/latest/loading-screen/"
         self.data = self.json_data()
-        self.skin_urls = self.fetch_loading_skin_urls()
+        self.skin_urls = self.fetch_loading_skin_urls() 
         
     def json_data(self):
         with urllib.request.urlopen(self.data_url) as url:
@@ -25,6 +27,14 @@ class DownloadSkins:
                     skin_numbers_names[skin['num']] = skin['name']
                 champion_skins_dict.setdefault(value['key'], {}).update({'data': skin_numbers_names, 'name': key})
         return champion_skins_dict
+    
+    def __champion_full_url(self):
+        return "http://ddragon.leagueoflegends.com/cdn/{}/data/en_US/championFull.json".format(self.__last_ddragon_version())
+    
+    def __last_ddragon_version(self):
+        with urllib.request.urlopen(self.DDRAGON_VERSIONS_URL) as url:
+            versions_json = json.loads(url.read().decode())
+            return versions_json[0]
     
     def fetch_loading_skin_urls(self):
         skin_urls = []

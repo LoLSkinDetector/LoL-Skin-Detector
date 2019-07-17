@@ -31,8 +31,8 @@ class DetectorThread(QtCore.QThread):
                 
             resized_search_image = cv2.resize(search_image, (int(self.width * self.IMG_WIDTH_CORRECTION_COEF),
                                                              int(self.height * self.IMG_HEIGHT_CORRECTION_COEF)))
-            resized_search_image = cv2.GaussianBlur(resized_search_image, (5, 5), 0)
-    
+            resized_search_image = cv2.medianBlur(resized_search_image, 9)
+
             w, h = resized_search_image.shape[::-1]
                                 
             method = eval('cv2.TM_CCOEFF_NORMED')
